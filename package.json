@@ -1,0 +1,36 @@
+{
+  "name": "tp2000",
+  "version": "1.0.0",
+  "description": "API for the TP2000 tea brewer",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest --testEnvironment=node --runInBand --detectOpenHandles ./tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lmalho/TP2000.git"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "node"
+  ],
+  "author": "Luis Alho",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Lmalho/TP2000/issues"
+  },
+  "homepage": "https://github.com/Lmalho/TP2000#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.13.7",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.1",
+    "jest": "^27.0.6",
+    "mongodb-memory-server": "^7.3.6",
+    "nodemon": "^2.0.12"
+  }
+}

@@ -1,0 +1,8 @@
+{
+    "env" : {
+        "port" : 3000,
+        "mongoDB" : "mongodb://localhost:27017/tp2000?readPreference=primary&ssl=false",
+        "morganLogLevel" : "dev"
+    }
+}
+
