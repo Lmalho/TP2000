@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 const Beverage = require('../models/beverage');
 
 const beverageController = {
-
     post: async (req, res) => {
         try {
             const existingBeverage = await Beverage.findOne({ name: req.body.name });
@@ -22,7 +21,7 @@ const beverageController = {
             }
             else {
                 const newBeverage = await beverage.save();
-                res.status(200)
+                res.status(201)
                     .json({
                         message: 'New beverage created',
                         beverage: {
@@ -32,7 +31,6 @@ const beverageController = {
                             temperature: newBeverage.temperature,
                             garnish: newBeverage.garnish
                         }
-
                     })
             }
 
@@ -44,21 +42,29 @@ const beverageController = {
 
     get: async (req, res) => {
         try {
-            const beverages = await Beverage.find();
-            res.status(200)
-                .json(
-                    {
-                        count: beverages.length,
-                        beverages: beverages.map(beverage => {
-                            return {
-                                id: beverage._id,
-                                name: beverage.name,
-                                type: beverage.type,
-                                temperature: beverage.temperature,
-                                garnish: beverage.garnish
-                            }
-                        })
-                    });
+            await Beverage
+                .find()
+                .exec()
+                .then(beverages => {
+                    res.status(200)
+                        .json(
+                            {
+                                count: beverages.length,
+                                beverages: beverages.map(beverage => {
+                                    return {
+                                        id: beverage._id,
+                                        name: beverage.name,
+                                        type: beverage.type,
+                                        temperature: beverage.temperature,
+                                        garnish: beverage.garnish
+                                    }
+                                })
+                            });
+                })
+                .catch(err => {
+                    res.status(500).json({ message: err.message });
+                })
+
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
@@ -90,7 +96,7 @@ const beverageController = {
 
     putById: async (req, res) => {
         try {
-            if (!mongoose.isValidObjectId(req.params.beverageId)) throw new Error( "No beverage found with that id" );
+            if (!mongoose.isValidObjectId(req.params.beverageId)) throw new Error("No beverage found with that id");
             const existingBeverage = await Beverage.findOne({ name: req.body.name });
             if (existingBeverage) throw new Error(`A beverage with the name ${req.body.name} already exists.`);
 

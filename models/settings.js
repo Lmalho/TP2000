@@ -7,7 +7,8 @@ const settingsSchema = new Schema(
         reservoir: Number,
         drinkSize: [
             { size: String, volume: Number }
-        ]
+        ],
+        allowedBeverages : [String]
     },
     { timestamps: true }
 );

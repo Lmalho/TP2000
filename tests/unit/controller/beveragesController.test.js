@@ -36,7 +36,7 @@ describe('/beverages', () => {
                     }
                 }
                 await beveragesController.post(req, res);
-                expect(res.status.mock.calls[0][0]).toEqual(200);
+                expect(res.status.mock.calls[0][0]).toEqual(201);
                 expect(res.json.mock.calls[0][0]).toMatchObject(
                     {
                         message: "New beverage created",
@@ -58,7 +58,7 @@ describe('/beverages', () => {
                     }
                 }
                 await beveragesController.post(req, res);
-                expect(res.status.mock.calls[0][0]).toEqual(200);
+                expect(res.status.mock.calls[0][0]).toEqual(201);
                 expect(res.json.mock.calls[0][0]).toMatchObject(
                     {
                         message: "New beverage created",
@@ -80,7 +80,7 @@ describe('/beverages', () => {
                     }
                 }
                 await beveragesController.post(req, res);
-                expect(res.status.mock.calls[0][0]).toEqual(200);
+                expect(res.status.mock.calls[0][0]).toEqual(201);
                 expect(res.json.mock.calls[0][0]).toMatchObject(
                     {
                         message: "New beverage created",
@@ -112,7 +112,7 @@ describe('/beverages', () => {
                         message: "A beverage with the name Black Tea already exists."
                     });
             });
-            it('invalid beverage schema', async () => {
+            it('invalid body', async () => {
                 const res = mockResponse();
                 let req = {
                     body: {
