@@ -29,10 +29,10 @@ describe('/beverages', () => {
                 const res = mockResponse();
                 let req = {
                     body: {
-                        "name": "Green Tea",
-                        "type": "Tea",
-                        "temperature": 80,
-                        "garnish": "Orange"
+                       name: "Green Tea",
+                       type: "Tea",
+                       temperature: 80,
+                        garnish: "Orange"
                     }
                 }
                 await beveragesController.post(req, res);
@@ -52,9 +52,9 @@ describe('/beverages', () => {
                 const res = mockResponse();
                 let req = {
                     body: {
-                        "name": "Black Tea",
-                        "type": "Tea",
-                        "temperature": 95,
+                       name: "Black Tea",
+                       type: "Tea",
+                       temperature: 95,
                     }
                 }
                 await beveragesController.post(req, res);
@@ -74,9 +74,9 @@ describe('/beverages', () => {
                 const res = mockResponse();
                 let req = {
                     body: {
-                        "name": "Espresso",
-                        "type": "Coffee",
-                        "temperature": 85,
+                       name: "Espresso",
+                       type: "Coffee",
+                       temperature: 85,
                     }
                 }
                 await beveragesController.post(req, res);
@@ -94,15 +94,14 @@ describe('/beverages', () => {
             });
         })
         describe('Error thrown when', () => {
-
             it('name already exists', async () => {
                 const res1 = mockResponse();
                 const res2 = mockResponse();
                 let req = {
                     body: {
-                        "name": "Black Tea",
-                        "type": "Tea",
-                        "temperature": 95,
+                       name: "Black Tea",
+                       type: "Tea",
+                       temperature: 95,
                     }
                 }
                 await beveragesController.post(req, res1);
@@ -117,8 +116,8 @@ describe('/beverages', () => {
                 const res = mockResponse();
                 let req = {
                     body: {
-                        "name": "Espresso",
-                        "type": "Coffee"
+                       name: "Espresso",
+                       type: "Coffee"
                     }
                 }
                 await beveragesController.post(req, res);
@@ -126,6 +125,22 @@ describe('/beverages', () => {
                 expect(res.json.mock.calls[0][0]).toMatchObject(
                     {
                         message: "ValidationError: temperature: Beverage temperature is required"
+                    });
+            });
+            it('invalid type in beverage property', async () => {
+                const res = mockResponse();
+                let req = {
+                    body: {
+                       name: "Black Tea",
+                       type: "Tea",
+                       temperature: "ninety",
+                    }
+                }
+                await beveragesController.post(req, res);
+                expect(res.status.mock.calls[0][0]).toEqual(400);
+                expect(res.json.mock.calls[0][0]).toMatchObject(
+                    {
+                        "message": "ValidationError: temperature: \"ninety\" is not a valid number"
                     });
             });
         })
@@ -137,16 +152,16 @@ describe('/beverages', () => {
             const resPost2 = mockResponse();
             let reqPost1 = {
                 body: {
-                    "name": "Black Tea",
-                    "type": "Tea",
-                    "temperature": 95,
+                   name: "Black Tea",
+                   type: "Tea",
+                   temperature: 95,
                 }
             };
             let reqPost2 = {
                 body: {
-                    "name": "Espresso",
-                    "type": "Coffee",
-                    "temperature": 85,
+                   name: "Espresso",
+                   type: "Coffee",
+                   temperature: 85,
                 }
             };
             await beveragesController.post(reqPost1, resPost1);
@@ -195,10 +210,10 @@ describe('/beverages/:beverageId', () => {
             const resPost = mockResponse();
             let reqPost = {
                 body: {
-                    "name": "Green Tea",
-                    "type": "Tea",
-                    "temperature": 80,
-                    "garnish": "Orange"
+                   name: "Green Tea",
+                   type: "Tea",
+                   temperature: 80,
+                    garnish: "Orange"
                 }
             }
             await beveragesController.post(reqPost, resPost);
@@ -244,10 +259,10 @@ describe('/beverages/:beverageId', () => {
                 const resPost = mockResponse();
                 let reqPost = {
                     body: {
-                        "name": "Green Tea",
-                        "type": "Tea",
-                        "temperature": 80,
-                        "garnish": "Orange"
+                       name: "Green Tea",
+                       type: "Tea",
+                       temperature: 80,
+                        garnish: "Orange"
                     }
                 }
                 await beveragesController.post(reqPost, resPost);
@@ -259,7 +274,7 @@ describe('/beverages/:beverageId', () => {
                         beverageId: id
                     },
                     body: {
-                        "temperature": 98
+                       temperature: 98
                     }
                 }
                 await beveragesController.putById(reqPut, resPut);
@@ -268,10 +283,10 @@ describe('/beverages/:beverageId', () => {
                     {
                         message: `Beverage with id ${id} was updated`,
                         newBeverage: {
-                            "name": "Green Tea",
-                            "type": "Tea",
-                            "temperature": 98,
-                            "garnish": "Orange"
+                           name: "Green Tea",
+                           type: "Tea",
+                           temperature: 98,
+                            garnish: "Orange"
                         }
                     });
                 //Check beverage was updated
@@ -296,10 +311,10 @@ describe('/beverages/:beverageId', () => {
                 const resPost = mockResponse();
                 let reqPost = {
                     body: {
-                        "name": "Green Tea",
-                        "type": "Tea",
-                        "temperature": 80,
-                        "garnish": "Orange"
+                       name: "Green Tea",
+                       type: "Tea",
+                       temperature: 80,
+                        garnish: "Orange"
                     }
                 }
                 await beveragesController.post(reqPost, resPost);
@@ -311,8 +326,8 @@ describe('/beverages/:beverageId', () => {
                         beverageId: id
                     },
                     body: {
-                        "temperature": 98,
-                        "garnish": "Lemon"
+                       temperature: 98,
+                        garnish: "Lemon"
                     }
                 }
                 await beveragesController.putById(reqPut, resPut);
@@ -321,10 +336,10 @@ describe('/beverages/:beverageId', () => {
                     {
                         message: `Beverage with id ${id} was updated`,
                         newBeverage: {
-                            "name": "Green Tea",
-                            "type": "Tea",
-                            "temperature": 98,
-                            "garnish": "Lemon"
+                           name: "Green Tea",
+                           type: "Tea",
+                           temperature: 98,
+                            garnish: "Lemon"
                         }
                     });
                 //Check beverage was updated
@@ -360,23 +375,23 @@ describe('/beverages/:beverageId', () => {
                     {
                         message: "No beverage found with that id"
                     });
-            })
+            });
             it('an update to an already existing name is sent', async () => {
                 // Create two beverages 
                 const resPost1 = mockResponse();
                 const resPost2 = mockResponse();
                 let reqPost1 = {
                     body: {
-                        "name": "Black Tea",
-                        "type": "Tea",
-                        "temperature": 95,
+                       name: "Black Tea",
+                       type: "Tea",
+                       temperature: 95,
                     }
                 };
                 let reqPost2 = {
                     body: {
-                        "name": "Espresso",
-                        "type": "Coffee",
-                        "temperature": 85,
+                       name: "Espresso",
+                       type: "Coffee",
+                       temperature: 85,
                     }
                 };
                 await beveragesController.post(reqPost1, resPost1);
@@ -398,7 +413,37 @@ describe('/beverages/:beverageId', () => {
                     {
                         message:  "A beverage with the name Espresso already exists."
                     });
-            })
+            });
+            it('an invalid property type is sent', async () => {
+                //Create a beverage
+                const resPost = mockResponse();
+                let reqPost = {
+                    body: {
+                       name: "Green Tea",
+                       type: "Tea",
+                       temperature: 80,
+                        garnish: "Orange"
+                    }
+                }
+                await beveragesController.post(reqPost, resPost);
+                let id = resPost.json.mock.calls[0][0].beverage.id.toString();
+                //Updated a beverage             
+                const resPut = mockResponse();
+                let reqPut = {
+                    params: {
+                        beverageId: id
+                    },
+                    body: {
+                        temperature: "HOT"
+                    }
+                }
+                await beveragesController.putById(reqPut, resPut);
+                expect(resPut.status.mock.calls[0][0]).toEqual(400);
+                expect(resPut.json.mock.calls[0][0]).toMatchObject(
+                    {
+                        message : "\"HOT\" is not a valid number",
+                    });
+            });
         })
     })
     describe('delete', () => {
@@ -407,10 +452,10 @@ describe('/beverages/:beverageId', () => {
             const resPost = mockResponse();
             let reqPost = {
                 body: {
-                    "name": "Green Tea",
-                    "type": "Tea",
-                    "temperature": 80,
-                    "garnish": "Orange"
+                    name: "Green Tea",
+                    type: "Tea",
+                    temperature: 80,
+                    garnish: "Orange"
                 }
             }
             await beveragesController.post(reqPost, resPost);

@@ -4,10 +4,25 @@ const Schema = mongoose.Schema;
 const beverageSchema = new Schema(
     {
         _id: Schema.Types.ObjectId,
-        name: { type: String, required : [true, 'Beverage name is required'] },
-        type: {type: String, required : [true, 'Beverage type is required'] },
-        temperature: {type: Number, required : [true, 'Beverage temperature is required'] },
-        garnish: String
+        name: {
+            type: String,
+            cast: '{VALUE} is not a valid string',
+            required: [true, 'Beverage name is required']
+        },
+        type: {
+            type: String,
+            cast: '{VALUE} is not a valid string',
+            required: [true, 'Beverage type is required']
+        },
+        temperature: {
+            type: Number,
+            cast: '{VALUE} is not a valid number',
+            required: [true, 'Beverage temperature is required']
+        },
+        garnish: {
+            type: String,
+            cast: '{VALUE} is not a valid string'
+        }
     },
     { timestamps: true }
 );
