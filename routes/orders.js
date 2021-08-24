@@ -8,6 +8,6 @@ ordersRouter.post('/', orderController.post)
 
 ordersRouter.route('/:orderId').get(orderController.getById)
 
-ordersRouter.put('/:orderId', orderController.putById);
+ordersRouter.put('/:orderId/complete', orderController.completeById);
 
 module.exports = ordersRouter;

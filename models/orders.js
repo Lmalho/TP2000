@@ -20,9 +20,8 @@ const orderSchema = new Schema(
         },
         status: {
             type: String,
-            enum: ['In Queue', 'In Progress', 'Complete']     
+            enum: ['In Queue', 'In Progress', 'Completed']     
         }
-
     },
     { timestamps: true }
 );

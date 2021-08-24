@@ -100,13 +100,13 @@ const beverageController = {
             const existingBeverage = await Beverage.findOne({ name: req.body.name });
             if (existingBeverage) throw new Error(`A beverage with the name ${req.body.name} already exists.`);
 
-            const beverage = mongoose.isValidObjectId(req.params.beverageId) ? await Beverage.findByIdAndUpdate(req.params.beverageId, { $set: req.body }, { new: true }) : null
+            const beverage = await Beverage.findByIdAndUpdate(req.params.beverageId, { $set: req.body }, { new: true }) ;
             if (beverage) {
                 if (!beverage.errors) {
                     res.status(200)
                         .json({
                             message: `Beverage with id ${req.params.beverageId} was updated`,
-                            newBeverage: {
+                            beverage: {
                                 id: beverage._id,
                                 name: beverage.name,
                                 type: beverage.type,

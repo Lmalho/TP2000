@@ -282,7 +282,7 @@ describe('/beverages/:beverageId', () => {
                 expect(resPut.json.mock.calls[0][0]).toMatchObject(
                     {
                         message: `Beverage with id ${id} was updated`,
-                        newBeverage: {
+                        beverage: {
                            name: "Green Tea",
                            type: "Tea",
                            temperature: 98,
@@ -335,7 +335,7 @@ describe('/beverages/:beverageId', () => {
                 expect(resPut.json.mock.calls[0][0]).toMatchObject(
                     {
                         message: `Beverage with id ${id} was updated`,
-                        newBeverage: {
+                        beverage: {
                            name: "Green Tea",
                            type: "Tea",
                            temperature: 98,

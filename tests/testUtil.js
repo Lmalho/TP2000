@@ -52,6 +52,16 @@ const testsUtil = {
         })
         await order.save();
         return order._id.toString();
+    }, 
+
+    getOrderStatus: async(id) => {
+        let order = await Order.findById(id).exec();
+        return order.status;
+    },
+
+    getSettingsReservoir: async() => {
+        let settings = await Settings.find().exec();
+        return settings[0].reservoir;
     }
 
 }

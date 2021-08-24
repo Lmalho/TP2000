@@ -50,7 +50,7 @@ const orderController = {
             }
         }
         catch (err) {
-            res.status(400).json({ message: err.message });
+            res.status(500).json({ message: err.message });
         }
     },
 
@@ -84,11 +84,58 @@ const orderController = {
     },
 
     getById: async (req, res) => {
-
+        try {
+            const order = mongoose.isValidObjectId(req.params.orderId) ? await Order.findById(req.params.orderId) : null
+            if (order) {
+                res.status(200)
+                    .json({
+                        id: order._id,
+                        username: order.username,
+                        beverage: order.beverage._id.toString(),
+                        drinkSize: order.drinkSize,
+                        status: order.status
+                    })
+            }
+            else {
+                res.status(400).json({
+                    message: "No order found with that id"
+                });
+            }
+        }
+        catch (err) {
+            res.status(500).json({ message: err.message });
+        }
     },
 
-    putById: async (req, res) => {
-
+    completeById: async (req, res) => {
+        try {
+            if (!mongoose.isValidObjectId(req.params.orderId)) {
+                res.status(404)
+                throw new Error(`No order found with id ${req.params.orderId}`);
+            }
+            let query = {
+                _id: req.params.orderId,
+                status: 'In Progress'
+            }
+            let order = await Order.findOneAndUpdate(query, { $set: { status: 'Completed' } }, { new: true });
+            if (order) {
+                if (!order.errors) {
+                    orderControllerUtil.startNextOrder();
+                    res.status(200)
+                        .json({
+                            message: `Order with id ${req.params.orderId} was completed`
+                        })
+                }
+            }
+            else {
+                res.status(400).json({
+                    message: `No order in progress found with id ${req.params.orderId}`
+                });
+            }
+        }
+        catch (err) {
+            res.status(500).json({ message: err.message });
+        }
     }
 }
 
