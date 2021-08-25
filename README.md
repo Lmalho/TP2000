@@ -191,7 +191,8 @@ To run the test suites
 ## 1 - Make sure the following dev dependencies are installed
 
 	"jest": "^27.0.6",
-    "mongodb-memory-server": "^7.3.6"
+    "mongodb-memory-server": "^7.3.6",
+	"supertest": "^6.1.6"
 
 ## 2 - Run
 

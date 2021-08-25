@@ -29,7 +29,7 @@ var ordersRouter = require('./routes/orders');
 app.use('/beverages', beveragesRouter);
 app.use('/orders', ordersRouter);
 
-//Not valid route was found, throw a 404 error
+// Invalid route was found, throw a 404 error
 app.use(( req, res, next) => {
     const error = new Error('Not found');
     res.status(404);

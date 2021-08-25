@@ -19,6 +19,7 @@ const orderController = {
                 drinkSize: req.body.drinkSize ? req.body.drinkSize : '',
                 status: status
             })
+            // Validate the body against the schema
             let validation = order.validateSync();
             if (validation) {
                 res.status(400).json({

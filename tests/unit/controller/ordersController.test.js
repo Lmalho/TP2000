@@ -1,6 +1,8 @@
 const dbHandler = require('../../dbHandler');
 const ordersController = require('../../../controller/ordersController');
 const testsUtil = require('../../testUtil');
+
+//Use jest to mock a response 
 const mockResponse = () => {
     const res = {};
     res.status = jest.fn().mockReturnValue(res);

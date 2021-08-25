@@ -4,6 +4,7 @@ const Beverage = require('../models/beverage');
 const Order = require('../models/orders');
 
 const testsUtil = {
+    //Set teapot settings in the database
     setSettings: async (reservoir, allowedBeverages) => {
         let settings = new Settings({
             _id: mongoose.Types.ObjectId(),

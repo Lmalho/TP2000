@@ -4,6 +4,7 @@ const Beverage = require('../models/beverage');
 const beverageController = {
     post: async (req, res) => {
         try {
+            if(!req.body) throw new Error(`Invalid Request`);
             const existingBeverage = await Beverage.findOne({ name: req.body.name });
             if (existingBeverage) throw new Error(`A beverage with the name ${req.body.name} already exists.`);
             const beverage = new Beverage({

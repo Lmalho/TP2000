@@ -1,5 +1,6 @@
 const dbHandler = require('../../dbHandler');
 const beveragesController = require('../../../controller/beveragesController');
+const testUtil = require('../../testUtil');
 const mockResponse = () => {
     const res = {};
     res.status = jest.fn().mockReturnValue(res);
@@ -22,7 +23,7 @@ afterEach(async () => await dbHandler.clearDatabase());
 afterAll(async () => await dbHandler.closeDatabase());
 
 //Tests
-describe('/beverages', () => {
+describe('Tests for beverages Controller', () => {
     describe('post', () => {
         describe('Beverages are created when', () => {
             it('first beverage with all settings', async () => {
@@ -207,18 +208,7 @@ describe('/beverages/:beverageId', () => {
     describe('get', () => {
         it('Gets a beverage when a valid id is sent ', async () => {
             //Create a beverage
-            const resPost = mockResponse();
-            let reqPost = {
-                body: {
-                   name: "Green Tea",
-                   type: "Tea",
-                   temperature: 80,
-                    garnish: "Orange"
-                }
-            }
-            await beveragesController.post(reqPost, resPost);
-            let id = resPost.json.mock.calls[0][0].beverage.id.toString();
-
+            const id = await testUtil.createBeverage();
             //Get a beverage             
             const resGet = mockResponse();
             let reqGet = {
@@ -255,18 +245,7 @@ describe('/beverages/:beverageId', () => {
     describe('put', () => {
         describe('Beverages are updated when', () => {
             it('a single property is sent', async () => {
-                //Create a beverage
-                const resPost = mockResponse();
-                let reqPost = {
-                    body: {
-                       name: "Green Tea",
-                       type: "Tea",
-                       temperature: 80,
-                        garnish: "Orange"
-                    }
-                }
-                await beveragesController.post(reqPost, resPost);
-                let id = resPost.json.mock.calls[0][0].beverage.id.toString();
+                const id = await testUtil.createBeverage();
                 //Updated a beverage             
                 const resPut = mockResponse();
                 let reqPut = {
@@ -309,16 +288,7 @@ describe('/beverages/:beverageId', () => {
             it('a multiple properties are sent', async () => {
                 //Create a beverage
                 const resPost = mockResponse();
-                let reqPost = {
-                    body: {
-                       name: "Green Tea",
-                       type: "Tea",
-                       temperature: 80,
-                        garnish: "Orange"
-                    }
-                }
-                await beveragesController.post(reqPost, resPost);
-                let id = resPost.json.mock.calls[0][0].beverage.id.toString();
+                const id = await testUtil.createBeverage();
                 //Update a beverage             
                 const resPut = mockResponse();
                 let reqPut = {

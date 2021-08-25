@@ -34,11 +34,12 @@ const orderControllerUtil = {
         }
         else return false;
     },
+    // get the list of allowed beverages
     allowedBeverages: async () => {
         let settings = await Settings.find().exec();
         return settings ? Array.from(settings[0].allowedBeverages) : null;
     },
-
+    //Check if there are orders in the queue and update the next one to in progress
     startNextOrder: async () => {
         let orders = await Order.find({ status: 'In Queue' })
             .sort({ _id: 1 })

@@ -2,6 +2,7 @@ const express = require('express');
 const beverageController = require('../controller/beveragesController');
 const beveragesRouter = express.Router();
 
+
 beveragesRouter.get('/', beverageController.get);
 
 beveragesRouter.post('/', beverageController.post)
